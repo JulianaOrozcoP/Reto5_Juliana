@@ -14,7 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
+
 
 /**
  *
@@ -26,9 +26,7 @@ public class Reservaciones implements Serializable {
      @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idReservation;
-     @Temporal(javax.persistence.TemporalType.DATE)
     private Date startDate;
-     @Temporal(javax.persistence.TemporalType.DATE)
     private Date devolutionDate;
     private String status="created";
 

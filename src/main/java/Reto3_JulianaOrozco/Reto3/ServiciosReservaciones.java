@@ -45,8 +45,8 @@ public class ServiciosReservaciones {
         if(reservation.getIdReservation()==null){ // ********
             return metodosCrud.save(reservation);
         }else{ // ********
-            Optional<Reservaciones> e= metodosCrud.getReservation(reservation.getIdReservation());
-            if(e.isEmpty()){ // ********
+            Optional<Reservaciones> e_variable= metodosCrud.getReservation(reservation.getIdReservation());
+            if(e_variable.isEmpty()){ // ********
                 return metodosCrud.save(reservation);
             }else{ // ********
                 return reservation;
@@ -94,31 +94,60 @@ public class ServiciosReservaciones {
         }).orElse(false);
         return aBoolean;
     }
-    
+    /**
+    * 
+     * @return 
+    */      
     public StatusReservas getReporteStatusReservaciones(){
+        /**
+        * 
+        */          
         List<Reservaciones>completed= metodosCrud.ReservacionesStatus("completed");
+        /**
+        * 
+        */                  
         List<Reservaciones>cancelled= metodosCrud.ReservacionesStatus("cancelled");
+        
         return new StatusReservas(completed.size(), cancelled.size());
     }
-    
+    /**
+    * 
+     * @param datoA
+     * @param datoB
+     * @return 
+    */      
     public List<Reservaciones> getReportesTiempoReservaciones(String datoA, String datoB){
+        /**
+        * 
+        */                  
         SimpleDateFormat parser=new SimpleDateFormat ("yyyy-MM-dd");
+        /**
+        * 
+        */                  
         Date datoUno = new Date();
+        /**
+        * 
+        */                  
         Date datoDos = new Date();
-        
-        try{
+        /**
+        * 
+        */                  
+        try{// ********
             datoUno = parser.parse(datoA);
             datoDos = parser.parse(datoB);
         }catch(ParseException evt){
-        }if(datoUno.before(datoDos)){
+            evt.printStackTrace();
+        }if(datoUno.before(datoDos)){// ********
             return metodosCrud.ReservacionesTiempo(datoUno, datoDos);
-        }else{
+        }else{// ********
             return new ArrayList<>();
         }
     }  
-    
+    /**
+    * 
+     * @return 
+    */      
     public List<ContadorClientes> servicioTopClientes(){
         return metodosCrud.getTopClientes();
     }
 }
-
